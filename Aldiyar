@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Простой калькулятор</title>
+</head>
+<body>
+    <h1>Калькулятор</h1>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <input type="text" name="num1" placeholder="Первое число">
+        <select name="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" name="num2" placeholder="Второе число">
+        <input type="submit" value="Посчитать">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $num1 = $_POST["num1"];
+        $num2 = $_POST["num2"];
+        $operator = $_POST["operator"];
+        $result = 0;
+
+        switch ($operator) {
+            case "+":
+                $result = $num1 + $num2;
+                break;
+            case "-":
+                $result = $num1 - $num2;
+                break;
+            case "*":
+                $result = $num1 * $num2;
+                break;
+            case "/":
+                if ($num2 != 0) {
+                    $result = $num1 / $num2;
+                } else {
+                    echo "Деление на ноль невозможно";
+                }
+                break;
+            default:
+                echo "Неверная операция";
+        }
+
+        echo "Результат: $result";
+    }
+    ?>
+</body>
+</html>
